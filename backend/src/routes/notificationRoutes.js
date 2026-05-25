@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { authenticate } = require('../middleware/auth');
+const { protect } = require('../middleware/auth');
 const { getNotifications, markAsRead, markAllAsRead, deleteNotification, getUnreadCount } = require('../controllers/notificationController');
 
-router.use(authenticate);
+router.use(protect);
 router.get('/', getNotifications);
 router.get('/unread-count', getUnreadCount);
 router.patch('/:id/read', markAsRead);

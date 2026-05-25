@@ -15,6 +15,8 @@ export function DataProvider({ children }) {
   const [marriages, setMarriages] = useState([]);
   const [divorces, setDivorces] = useState([]);
   const [migrations, setMigrations] = useState([]);
+  const [certificates, setCertificates] = useState([]);
+  const [notifications, setNotifications] = useState([]);
   const [stats, setStats] = useState(null);
   const [analytics, setAnalytics] = useState(null);
   const [loadingData, setLoadingData] = useState(false);
@@ -23,6 +25,7 @@ export function DataProvider({ children }) {
     if (!user) {
       setResidents([]); setRequests([]); setVitalEvents([]);
       setMarriages([]); setDivorces([]); setMigrations([]);
+      setCertificates([]); setNotifications([]);
       setStats(null); setAnalytics(null);
       return;
     }
@@ -38,6 +41,8 @@ export function DataProvider({ children }) {
           api.get(`/marriages?${BULK_LIST_QUERY}`).then((r) => setMarriages(r.data)).catch(() => { }),
           api.get(`/divorces?${BULK_LIST_QUERY}`).then((r) => setDivorces(r.data)).catch(() => { }),
           api.get(`/residents?${BULK_LIST_QUERY}`).then((r) => setResidents(r.data)).catch(() => { }),
+          api.get(`/certificates?${BULK_LIST_QUERY}`).then((r) => setCertificates(r.data)).catch(() => { }),
+          api.get('/notifications').then((r) => setNotifications(r.data)).catch(() => { }),
         ]);
       } else if (role === 'clerk') {
         await Promise.all([
@@ -47,6 +52,8 @@ export function DataProvider({ children }) {
           api.get(`/marriages?${BULK_LIST_QUERY}`).then((r) => setMarriages(r.data)).catch(() => { }),
           api.get(`/divorces?${BULK_LIST_QUERY}`).then((r) => setDivorces(r.data)).catch(() => { }),
           api.get(`/migrations?${BULK_LIST_QUERY}`).then((r) => setMigrations(r.data)).catch(() => { }),
+          api.get(`/certificates?${BULK_LIST_QUERY}`).then((r) => setCertificates(r.data)).catch(() => { }),
+          api.get('/notifications').then((r) => setNotifications(r.data)).catch(() => { }),
           api.get('/stats/dashboard').then((r) => setStats(r.data)).catch(() => { }),
         ]);
       } else if (role === 'admin' || role === 'superadmin') {
@@ -57,6 +64,8 @@ export function DataProvider({ children }) {
           api.get(`/marriages?${BULK_LIST_QUERY}`).then((r) => setMarriages(r.data)).catch(() => { }),
           api.get(`/divorces?${BULK_LIST_QUERY}`).then((r) => setDivorces(r.data)).catch(() => { }),
           api.get(`/migrations?${BULK_LIST_QUERY}`).then((r) => setMigrations(r.data)).catch(() => { }),
+          api.get(`/certificates?${BULK_LIST_QUERY}`).then((r) => setCertificates(r.data)).catch(() => { }),
+          api.get('/notifications').then((r) => setNotifications(r.data)).catch(() => { }),
           api.get('/stats/dashboard').then((r) => setStats(r.data)).catch(() => { }),
         ]);
       }
@@ -179,6 +188,7 @@ export function DataProvider({ children }) {
   return (
     <DataContext.Provider value={{
       residents, requests, vitalEvents, marriages, divorces, migrations,
+      certificates, notifications,
       stats, analytics, loadingData,
       addResident, updateResident, verifyResident, deleteResident,
       addRequest, updateRequestStatus, deleteRequest,
