@@ -28,6 +28,11 @@ api.interceptors.response.use(
   }
 );
 
+api.upload = (url, formData) =>
+  api.post(url, formData, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
+
 export const notificationApi = {
   getAll: (params) => api.get('/notifications', { params }),
   getUnreadCount: () => api.get('/notifications/unread-count'),
