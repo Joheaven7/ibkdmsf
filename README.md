@@ -213,10 +213,10 @@ IBKDMS-BR-2026-000123
 ### 1. Clone Repository
 
 ```bash
-git clone <repo-url>
+git clone (https://github.com/Joheaven7/ibkdmsf)
 cd ibkdms
 ```
-
+ 
 ---
 
 ### 2. Backend Setup
