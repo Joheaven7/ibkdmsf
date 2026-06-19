@@ -75,7 +75,7 @@ if (!process.env.JWT_SECRET || process.env.JWT_SECRET.length < 32) { console.err
 
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 15,
+  max: process.env.NODE_ENV === 'production' ? 15 : 100,
   message: 'Too many requests from this IP, please try again after 15 minutes'
 });
 
